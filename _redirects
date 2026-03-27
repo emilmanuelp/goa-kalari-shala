@@ -1,5 +1,2 @@
 # Redirect bare domain to www
-http://kalarideva.in/* https://www.kalarideva.in/:splat 301!
-
-# 404 fallback
-/* /index.html 200
+http://kalarideva.in/* https://www.kalarideva.in/:splat 301
