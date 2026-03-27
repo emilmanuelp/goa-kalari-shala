@@ -80,6 +80,104 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(tick);
   }
 
+  /* ── GALLERY SLIDER ── */
+  const track      = document.getElementById('gallery-track');
+  const slides     = track ? track.querySelectorAll('.gallery-slide') : [];
+  const dots       = document.querySelectorAll('.gallery-dot');
+  const thumbs     = document.querySelectorAll('.gallery-thumb');
+  const prevBtn    = document.getElementById('gallery-prev');
+  const nextBtn    = document.getElementById('gallery-next');
+  const currentEl  = document.getElementById('gallery-current');
+  const totalEl    = document.getElementById('gallery-total');
+  const TOTAL      = slides.length;
+  const AUTO_MS    = 2000;          // 2-second autoplay interval
+
+  if (track && TOTAL > 0) {
+    let current   = 0;
+    let autoTimer = null;
+    let isPaused  = false;
+
+    if (totalEl) totalEl.textContent = TOTAL;
+
+    function goTo(idx, userAction = false) {
+      // Clamp index into range (wrapping)
+      current = (idx + TOTAL) % TOTAL;
+
+      // Translate the track
+      track.style.transform = `translateX(-${current * 100}%)`;
+
+      // Active slide class (Ken Burns + caption fade)
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
+
+      // Dots
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+        d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+      });
+
+      // Thumbnails
+      thumbs.forEach((t, i) => t.classList.toggle('active', i === current));
+
+      // Counter
+      if (currentEl) currentEl.textContent = current + 1;
+
+      // If user manually navigated, restart the timer
+      if (userAction) restartAuto();
+    }
+
+    function startAuto() {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = setInterval(() => {
+        if (!isPaused) goTo(current + 1);
+      }, AUTO_MS);
+    }
+
+    function restartAuto() {
+      clearInterval(autoTimer);
+      startAuto();
+    }
+
+    // Pause autoplay while the user hovers over the slider
+    const sliderWrap = document.querySelector('.gallery-slider-wrap');
+    sliderWrap?.addEventListener('mouseenter', () => { isPaused = true; });
+    sliderWrap?.addEventListener('mouseleave', () => { isPaused = false; });
+    // Also pause on touch-focus for mobile accessibility
+    sliderWrap?.addEventListener('focusin',  () => { isPaused = true; });
+    sliderWrap?.addEventListener('focusout', () => { isPaused = false; });
+
+    // Arrow buttons
+    prevBtn?.addEventListener('click', () => goTo(current - 1, true));
+    nextBtn?.addEventListener('click', () => goTo(current + 1, true));
+
+    // Dot clicks
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => goTo(+dot.dataset.index, true));
+    });
+
+    // Thumbnail clicks
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => goTo(+thumb.dataset.index, true));
+    });
+
+    // Keyboard navigation when slider is focused
+    sliderWrap?.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft')  { goTo(current - 1, true); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { goTo(current + 1, true); e.preventDefault(); }
+    });
+
+    // Touch / swipe support
+    let touchStartX = 0;
+    sliderWrap?.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    sliderWrap?.addEventListener('touchend', e => {
+      const dx = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) goTo(dx > 0 ? current + 1 : current - 1, true);
+    }, { passive: true });
+
+    // Kick off
+    goTo(0);           // set initial active state
+    startAuto();       // start 2-second autoplay
+  }
+
   /* ── ADMISSIONS FORM (admissions.html only) ── */
   const form = document.getElementById('admissions-form');
   if (!form) return;
@@ -140,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const data = new FormData(form);
     const payload = {
-      access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // ← Replace with your Web3Forms key
+      access_key: '30c90183-8de5-4571-81b5-c654b03c04c1', // ← Replace with your Web3Forms key
       subject: 'New Admission Inquiry — Kalari Deva Academy',
       from_name: 'Kalari Deva Academy Website',
       botcheck: '',

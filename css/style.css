@@ -823,6 +823,207 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 .footer-social a:hover { background: var(--terra); border-color: var(--terra); }
 
 /* ═══════════════════════════════════════
+   GALLERY SLIDER
+═══════════════════════════════════════ */
+.gallery-section { padding-bottom: 60px; background: var(--cream-dk); }
+.gallery-section .container { margin-bottom: 40px; }
+
+/* Outer wrapper — sets slider dimensions and positions arrows */
+.gallery-slider-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto 32px;
+  overflow: hidden;               /* clips the off-screen slides */
+  background: var(--ink);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Track — horizontally scrollable strip of slides */
+.gallery-track {
+  display: flex;
+  width: 100%;
+  /* JS will set transform: translateX() to slide */
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+
+/* Individual slide */
+.gallery-slide {
+  flex: 0 0 100%;          /* each slide = exactly 100% of wrapper width */
+  width: 100%;
+  position: relative;
+  margin: 0; padding: 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 7;   /* consistent height ratio across all slides */
+}
+
+/* Photo */
+.gallery-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Subtle Ken Burns zoom on the active slide — applied via JS class */
+  transition: transform 4s ease;
+  transform: scale(1.04);
+}
+.gallery-slide.is-active .gallery-img { transform: scale(1); }
+
+/* Dark gradient overlay at the bottom for caption legibility */
+.gallery-slide::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(10, 8, 5, 0.72) 100%
+  );
+  pointer-events: none;
+}
+
+/* Caption */
+.gallery-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 28px 48px;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-serif);
+  font-size: 1rem; font-style: italic; font-weight: 300;
+  line-height: 1.6;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: opacity 0.5s 0.35s ease, transform 0.5s 0.35s ease;
+}
+.gallery-slide.is-active .gallery-caption {
+  transform: translateY(0);
+  opacity: 1;
+}
+.gallery-caption-label {
+  display: block;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold-lt);
+  margin-bottom: 6px;
+}
+
+/* ── Arrow buttons ── */
+.gallery-btn {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  z-index: 10;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(28, 56, 41, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  color: var(--white);
+  font-size: 1rem;
+  display: grid; place-items: center;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition),
+              transform var(--transition), box-shadow var(--transition);
+}
+.gallery-btn:hover {
+  background: var(--terra);
+  border-color: var(--terra);
+  box-shadow: 0 4px 20px rgba(196, 97, 42, 0.45);
+}
+.gallery-btn-prev {
+  left: 20px;
+  transform: translateY(-50%) translateX(0);
+}
+.gallery-btn-next {
+  right: 20px;
+  transform: translateY(-50%) translateX(0);
+}
+.gallery-btn-prev:hover { transform: translateY(-50%) translateX(-2px); }
+.gallery-btn-next:hover { transform: translateY(-50%) translateX(2px); }
+
+/* ── Dot indicators ── */
+.gallery-dots {
+  position: absolute;
+  bottom: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 10;
+  display: flex; align-items: center; gap: 8px;
+}
+.gallery-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none; padding: 0; cursor: pointer;
+  transition: background var(--transition), transform var(--transition), width var(--transition);
+}
+.gallery-dot.active {
+  background: var(--gold-lt);
+  width: 24px; border-radius: 4px;
+}
+
+/* ── Slide counter ── */
+.gallery-counter {
+  position: absolute;
+  top: 18px; right: 22px;
+  z-index: 10;
+  font-family: var(--font-display);
+  font-size: 0.75rem; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.35);
+  padding: 4px 12px; border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+#gallery-current { color: var(--gold-lt); font-weight: 700; }
+
+/* ── Thumbnail strip ── */
+.gallery-thumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.gallery-thumb {
+  width: 100px; height: 68px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0; cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  flex-shrink: 0;
+}
+.gallery-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.7) saturate(0.8);
+  transition: filter var(--transition);
+}
+.gallery-thumb:hover img,
+.gallery-thumb.active img { filter: brightness(1) saturate(1); }
+.gallery-thumb.active {
+  border-color: var(--terra);
+  box-shadow: 0 4px 16px rgba(196,97,42,0.4);
+  transform: translateY(-3px);
+}
+
+/* ── Pause on hover indicator ── */
+.gallery-slider-wrap:hover .gallery-btn { opacity: 1; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gallery-slide { aspect-ratio: 4 / 3; }
+  .gallery-caption { padding: 20px 60px 20px 20px; font-size: .9rem; }
+  .gallery-btn { width: 40px; height: 40px; font-size: .85rem; }
+  .gallery-btn-prev { left: 10px; }
+  .gallery-btn-next { right: 10px; }
+  .gallery-thumb { width: 72px; height: 50px; }
+}
+@media (max-width: 480px) {
+  .gallery-slide { aspect-ratio: 3 / 2; }
+  .gallery-thumbs { gap: 8px; }
+  .gallery-thumb { width: 58px; height: 42px; }
+}
+
+/* ═══════════════════════════════════════
    ANIMATIONS
 ═══════════════════════════════════════ */
 @keyframes fadeUp {

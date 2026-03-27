@@ -37,6 +37,7 @@
       <li><a href="index.html">About</a></li>
       <li><a href="index.html#disciplines">Disciplines</a></li>
       <li><a href="index.html#instructors">Instructors</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
       <li><a href="index.html#testimonials">Testimonials</a></li>
       <li><a href="admissions.html" class="nav-cta">Apply Now</a></li>
     </ul>
@@ -292,6 +293,138 @@
 
       </div>
     </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       GALLERY
+  ═══════════════════════════════════════ -->
+  <section class="section gallery-section" id="gallery" aria-labelledby="gallery-title">
+    <div class="container text-center">
+      <p class="section-label reveal">Inside the Kalari</p>
+      <h2 class="section-title reveal reveal-delay-1" id="gallery-title">Life at the Academy</h2>
+      <p class="section-subtitle reveal reveal-delay-2">
+        A glimpse into our training ground — where ancient discipline meets daily practice.
+      </p>
+    </div>
+
+    <div class="gallery-slider-wrap reveal reveal-delay-2" role="region" aria-label="Academy photo gallery" aria-roledescription="carousel">
+
+      <!-- Slide track -->
+      <div class="gallery-track" id="gallery-track">
+
+        <figure class="gallery-slide" role="group" aria-roledescription="slide" aria-label="1 of 5">
+          <img
+            src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=1400&q=85"
+            alt="Kalaripayattu students performing warm-up exercises in an open-air Kalari training space, early morning light"
+            class="gallery-img"
+            loading="lazy"
+          />
+          <figcaption class="gallery-caption">
+            <span class="gallery-caption-label">Morning Practice</span>
+            Early morning Meithari conditioning — the foundation of every session at our Kalari.
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-slide" role="group" aria-roledescription="slide" aria-label="2 of 5">
+          <img
+            src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=1400&q=85"
+            alt="Advanced student executing a high aerial kick during Kalaripayattu training session"
+            class="gallery-img"
+            loading="lazy"
+          />
+          <figcaption class="gallery-caption">
+            <span class="gallery-caption-label">Aerial Techniques</span>
+            Months of Meithari training build the flexibility and strength for advanced aerial sequences.
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-slide" role="group" aria-roledescription="slide" aria-label="3 of 5">
+          <img
+            src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1400&q=85"
+            alt="Gurukkal demonstrating traditional wooden staff (Kettukari) technique to students in the Kalari shala"
+            class="gallery-img"
+            loading="lazy"
+          />
+          <figcaption class="gallery-caption">
+            <span class="gallery-caption-label">Kolthari — Wooden Weapons</span>
+            Gurukkal demonstrates the Kettukari long-staff sequence. Precision and timing above all.
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-slide" role="group" aria-roledescription="slide" aria-label="4 of 5">
+          <img
+            src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=1400&q=85"
+            alt="Children's Kalaripayattu batch in a row performing synchronised stance exercises in the training hall"
+            class="gallery-img"
+            loading="lazy"
+          />
+          <figcaption class="gallery-caption">
+            <span class="gallery-caption-label">Children's Batch</span>
+            Our youngest warriors — aged 7 to 14 — learn discipline, balance, and confidence.
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-slide" role="group" aria-roledescription="slide" aria-label="5 of 5">
+          <img
+            src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1400&q=85"
+            alt="Traditional oil lamp (nilavilakku) lit at the entrance of the Kalaripayattu training hall at dusk"
+            class="gallery-img"
+            loading="lazy"
+          />
+          <figcaption class="gallery-caption">
+            <span class="gallery-caption-label">The Kalari Spirit</span>
+            Every session begins with a salutation to the Gurukkal and the sacred lamp — tradition lives here.
+          </figcaption>
+        </figure>
+
+      </div><!-- /.gallery-track -->
+
+      <!-- Arrow controls -->
+      <button class="gallery-btn gallery-btn-prev" id="gallery-prev" aria-label="Previous photo">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button class="gallery-btn gallery-btn-next" id="gallery-next" aria-label="Next photo">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+
+      <!-- Dot indicators -->
+      <div class="gallery-dots" role="tablist" aria-label="Gallery navigation">
+        <button class="gallery-dot active" role="tab" aria-selected="true"  aria-label="Photo 1" data-index="0"></button>
+        <button class="gallery-dot"        role="tab" aria-selected="false" aria-label="Photo 2" data-index="1"></button>
+        <button class="gallery-dot"        role="tab" aria-selected="false" aria-label="Photo 3" data-index="2"></button>
+        <button class="gallery-dot"        role="tab" aria-selected="false" aria-label="Photo 4" data-index="3"></button>
+        <button class="gallery-dot"        role="tab" aria-selected="false" aria-label="Photo 5" data-index="4"></button>
+      </div>
+
+      <!-- Slide counter -->
+      <div class="gallery-counter" aria-live="polite" aria-atomic="true">
+        <span id="gallery-current">1</span> / <span id="gallery-total">5</span>
+      </div>
+
+    </div><!-- /.gallery-slider-wrap -->
+
+    <!-- Thumbnail strip -->
+    <div class="container">
+      <div class="gallery-thumbs" id="gallery-thumbs" role="list" aria-label="Photo thumbnails">
+        <button class="gallery-thumb active" data-index="0" aria-label="View photo 1: Morning Practice">
+          <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=200&q=70" alt="" aria-hidden="true" />
+        </button>
+        <button class="gallery-thumb" data-index="1" aria-label="View photo 2: Aerial Techniques">
+          <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=200&q=70" alt="" aria-hidden="true" />
+        </button>
+        <button class="gallery-thumb" data-index="2" aria-label="View photo 3: Kolthari">
+          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=200&q=70" alt="" aria-hidden="true" />
+        </button>
+        <button class="gallery-thumb" data-index="3" aria-label="View photo 4: Children's Batch">
+          <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=200&q=70" alt="" aria-hidden="true" />
+        </button>
+        <button class="gallery-thumb" data-index="4" aria-label="View photo 5: Kalari Spirit">
+          <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=200&q=70" alt="" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+
   </section>
 
 
