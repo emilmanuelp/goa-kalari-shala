@@ -1,5 +1,5 @@
 /* =========================================================
-   KALARI DEVA ACADEMY — Main JavaScript
+   GOA KALARI SHALA — Main JavaScript
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -239,8 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = new FormData(form);
     const payload = {
       access_key: '30c90183-8de5-4571-81b5-c654b03c04c1', // ← Replace with your Web3Forms key
-      subject: 'New Admission Inquiry — Kalari Deva Academy',
-      from_name: 'Kalari Deva Academy Website',
+      subject: 'New Admission Inquiry — Goa Kalari Shala',
+      from_name: 'Goa Kalari Shala Website',
       botcheck: '',
       ...Object.fromEntries(data.entries()),
     };
