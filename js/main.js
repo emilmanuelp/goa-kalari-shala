@@ -192,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     age:     v => (+v >= 5 && +v <= 80)  ? '' : 'Please enter a valid age between 5 and 80.',
     phone:   v => /^[6-9]\d{9}$/.test(v.replace(/\s/g,'')) ? '' : 'Enter a valid 10-digit Indian mobile number.',
     email:   v => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'Please enter a valid email address.',
-    batch:   v => v !== ''               ? '' : 'Please select a preferred batch.',
   };
 
   function validateField(input) {
