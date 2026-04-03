@@ -7,26 +7,26 @@
 
 /* ── TOKENS ── */
 :root {
-  /* ── Primary palette ── */
-  --rosewood:      #65000B;   /* deep rosewood — primary brand */
-  --rosewood-mid:  #7A0010;   /* mid rosewood — hover/active */
-  --rosewood-lt:   #8F1020;   /* lighter rosewood — accents */
-  --sienna:        #882D17;   /* dark sienna — secondary */
-  --sienna-lt:     #A84832;   /* lighter sienna — hover states */
-  --sienna-pale:   #F0DDD8;   /* very pale sienna — tints */
+  /* ── Primary palette — Maroon, Black, White only ── */
+  --rosewood:      #800000;
+  --rosewood-mid:  #600000;
+  --rosewood-lt:   #A00000;
+  --sienna:        #800000;
+  --sienna-lt:     #A00000;
+  --sienna-pale:   #F0E8E8;
 
-  /* ── Neutrals ── */
-  --black:         #0D0D0D;   /* true near-black — deepest bg */
-  --black-mid:     #1A1010;   /* warm black — footer, dark sections */
-  --black-lt:      #2C1A18;   /* warm dark — discipline cards */
-  --ink:           #1C1010;   /* body text base */
-  --ink-mid:       #3A2020;   /* secondary body text */
-  --muted:         #7A5A55;   /* muted/placeholder text */
+  /* ── Neutrals — pure black/grey/white ── */
+  --black:         #0D0D0D;
+  --black-mid:     #111111;
+  --black-lt:      #1E1E1E;
+  --ink:           #1A1A1A;
+  --ink-mid:       #333333;
+  --muted:         #666666;
   --white:         #FFFFFF;
 
-  /* ── Page backgrounds ── */
-  --cream:         #FAF3F0;   /* warm near-white — main bg */
-  --cream-dk:      #F0E4DF;   /* slightly darker — alt sections */
+  /* ── Page backgrounds — clean white/light grey ── */
+  --cream:         #F8F8F8;
+  --cream-dk:      #EEEEEE;
 
   /* ── Font stack — all system fonts, no external import ── */
   --font-display:  Georgia, 'Times New Roman', Times, serif;
@@ -38,12 +38,20 @@
   --radius:    6px;
   --radius-lg: 12px;
 
-  /* ── Shadows ── */
-  --shadow-sm:  0 2px 8px rgba(101,0,11,.10);
-  --shadow-md:  0 6px 24px rgba(101,0,11,.15);
-  --shadow-lg:  0 16px 48px rgba(101,0,11,.20);
+  /* ── Shadows — neutral, no colour tint ── */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,.10);
+  --shadow-md:  0 6px 24px rgba(0,0,0,.16);
+  --shadow-lg:  0 16px 48px rgba(0,0,0,.22);
 
   --transition: 0.3s cubic-bezier(.4,0,.2,1);
+
+
+ 
+
+  /* ── Font stack — all system fonts, no external import ── */
+  --font-display:  Georgia, 'Times New Roman', Times, serif;
+  --font-serif:    'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --font-body:     'Trebuchet MS', 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
 }
 
 /* ── RESET ── */
@@ -102,14 +110,25 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   border-bottom: 1px solid rgba(101,0,11,.4);
 }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
-.nav-logo-mark {
+.nav-logo-img {
+  height: 52px;
+  width: 52px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 4px;
+  mix-blend-mode: screen;
+  /* filter: contrast(1.05); */
+  transition: transform var(--transition);
+}
+.nav-logo:hover .nav-logo-img { transform: scale(1.06); }
+/* .nav-logo-mark {
   width: 40px; height: 40px;
   background: var(--rosewood);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: grid; place-items: center;
   font-family: var(--font-display);
   font-size: 1rem; font-weight: 700; color: var(--white); flex-shrink: 0;
-}
+} */
 .nav-logo-text {
   font-family: var(--font-display);
   font-size: .85rem; font-weight: 700;
