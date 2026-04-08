@@ -6,8 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── NAVBAR SCROLL BEHAVIOUR ── */
   const nav = document.querySelector('.nav');
+  const whatsappBtn = document.querySelector('.whatsapp-float');
   const onScroll = () => {
     nav?.classList.toggle('scrolled', window.scrollY > 40);
+    // Show WhatsApp button after scrolling past the hero area
+    if (whatsappBtn) {
+      whatsappBtn.classList.toggle('visible', window.scrollY > 300);
+    }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
