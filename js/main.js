@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const validators = {
     name:    v => v.trim().length >= 2   ? '' : 'Please enter your full name (min 2 characters).',
     age:     v => (+v >= 5 && +v <= 80)  ? '' : 'Please enter a valid age between 5 and 80.',
-    phone:   v => /^[6-9]\d{9}$/.test(v.replace(/\s/g,'')) ? '' : 'Enter a valid 10-digit Indian mobile number.',
+    phone:   v => /^\+?\d[\d\s\-()]{6,18}\d$/.test(v.trim()) ? '' : 'Please enter a valid phone number.',
     email:   v => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'Please enter a valid email address.',
   };
 
