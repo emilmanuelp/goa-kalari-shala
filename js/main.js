@@ -20,18 +20,48 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── MOBILE MENU TOGGLE ── */
   const toggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
+
+  function closeMobileMenu() {
+    toggle?.classList.remove('open');
+    navLinks?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  function openMobileMenu() {
+    toggle?.classList.add('open');
+    navLinks?.classList.add('open');
+    toggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
   toggle?.addEventListener('click', () => {
-    toggle.classList.toggle('open');
-    navLinks.classList.toggle('open');
-    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    const isOpen = navLinks.classList.contains('open');
+    if (isOpen) { closeMobileMenu(); } else { openMobileMenu(); }
   });
+
   // Close on link click
   navLinks?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      toggle?.classList.remove('open');
-      navLinks.classList.remove('open');
-      document.body.style.overflow = '';
-    });
+    a.addEventListener('click', () => closeMobileMenu());
+  });
+
+  // Close mobile menu on resize to desktop (orientation change, etc.)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (window.innerWidth > 768 && navLinks?.classList.contains('open')) {
+        closeMobileMenu();
+      }
+    }, 150);
+  });
+
+  // Close mobile menu on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks?.classList.contains('open')) {
+      closeMobileMenu();
+      toggle?.focus();
+    }
   });
 
   /* ── ACTIVE NAV LINK ── */
