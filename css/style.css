@@ -602,7 +602,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--rosewood) var(--cream-dk); 
   min-height: 380px;
 }
 .testimonial-featured .testimonial-text {
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 /* ═══════════════════════════════════════
